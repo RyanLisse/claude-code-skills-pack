@@ -10,6 +10,8 @@ This repo may use skills from RyanLisse/claude-code-skills-pack:
 - `/deslop` before review if the diff looks AI-heavy
 - `/verify-this` when claiming a fix works
 - `/fix-ci`, `/get-pr-comments`, `/make-pr-easy-to-review`, `/new-branch-and-pr`, `/review-and-ship` for PR/CI flow
+- `/cli-for-agents` when designing or reviewing CLIs for headless/agent use
+- `/archify` for validated interactive HTML architecture/workflow maps (needs Archify engine / `ARCHIFY_HOME`)
 
 Prefer invoking skills with `/name` for side-effect workflows (ship, CI, PR).
 ```
