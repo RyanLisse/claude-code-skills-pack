@@ -113,6 +113,12 @@ cp -R /tmp/archify-src/archify ~/.claude/skills/archify
 
 See [`notes/whats-new-vs-8ff9a8dc.md`](notes/whats-new-vs-8ff9a8dc.md): added **cli-for-agents** and **archify** Claude Code skills, README per-skill install, and attribution for both sources.
 
+## Examples / workshop templates
+
+| File | Purpose |
+|------|---------|
+| [`examples/intent.md`](examples/intent.md) | Wave 2 workshop **intent** template — problem, outcome, constraints, one blocker, roster (humans + agent), artifact chain, checks, carry-forward / gradual release. Humans fill it; agents work toward it. |
+
 ## Learn more
 
 - [Extend Claude with skills](https://code.claude.com/docs/en/skills) — official Claude Code skills docs
