@@ -121,6 +121,7 @@ See [`notes/whats-new-vs-8ff9a8dc.md`](notes/whats-new-vs-8ff9a8dc.md): added **
 | File | Purpose |
 |------|---------|
 | [`examples/intent.md`](examples/intent.md) | Wave 2 workshop **intent** template — problem, outcome, constraints, one blocker, roster (humans + agent), artifact chain, checks, carry-forward / gradual release. Humans fill it; agents work toward it. |
+| [`examples/training-prompts.md`](examples/training-prompts.md) | Copy-ready prompts for the 13 sections of a shared daily training block, including six agentic SDLC phase prompts. |
 
 ## Learn more
 
