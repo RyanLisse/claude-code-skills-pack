@@ -6,6 +6,7 @@ A small, public pack of **Claude Code** skills for Worldline / everyday shipping
 2. **Team-kit ports** — lean Claude Code adaptations of useful [cursor-team-kit](https://github.com/cursor/plugins/tree/main/cursor-team-kit) workflows (not a Cursor plugin)
 3. **`/cli-for-agents`** — design/review CLIs so agents can run them headlessly (from [cli-for-agent](https://github.com/cursor/plugins/tree/main/cli-for-agent), rewritten for Claude Code)
 4. **`/archify`** — architecture / workflow / sequence maps via [Archify](https://github.com/tt-a1i/archify) (Claude Code workflow adapter + engine install path)
+5. **`/handoff`** — write clipboard-ready prompts for another agent to investigate or continue a task
 
 Aimed at non-experts: copy skills in, type `/skill-name`, get structured help.
 
@@ -23,6 +24,7 @@ Aimed at non-experts: copy skills in, type `/skill-name`, get structured help.
 | review-and-ship | `/review-and-ship` | Review, test, commit, open/update PR |
 | cli-for-agents | `/cli-for-agents` | Agent-friendly CLI design & review patterns |
 | archify | `/archify` | Validated interactive HTML system maps (needs Archify engine) |
+| handoff | `/handoff` | Clipboard-ready prompts for another agent |
 
 Optional notes: [`notes/CLAUDE.md.snippets.md`](notes/CLAUDE.md.snippets.md), [`notes/hooks-notes.md`](notes/hooks-notes.md), [`notes/archify-claude-code.md`](notes/archify-claude-code.md), [`notes/whats-new-vs-8ff9a8dc.md`](notes/whats-new-vs-8ff9a8dc.md).
 
@@ -74,11 +76,12 @@ Replace `~/.claude/skills` with `.claude/skills` for project-only installs.
 | **new-branch-and-pr** | `cp -R skills/new-branch-and-pr ~/.claude/skills/` → `/new-branch-and-pr …` (needs `gh`) |
 | **review-and-ship** | `cp -R skills/review-and-ship ~/.claude/skills/` → `/review-and-ship` (needs `gh`) |
 | **cli-for-agents** | `cp -R skills/cli-for-agents ~/.claude/skills/` → `/cli-for-agents …` |
+| **handoff** | `cp -R skills/handoff ~/.claude/skills/` → `/handoff …` |
 | **archify** | See **Archify** below (skill + engine) |
 
 Then in Claude Code:
 
-- Type `/eli5 how does this module work` (or `/cli-for-agents`, `/archify`, …)
+- Type `/eli5 how does this module work` (or `/cli-for-agents`, `/archify`, `/handoff`, …)
 - Or ask in plain language; Claude may auto-load skills whose `description` matches
 - List skills with `/skills` (when available in your Claude Code version)
 
