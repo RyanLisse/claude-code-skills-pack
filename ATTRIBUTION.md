@@ -55,6 +55,13 @@ This pack ships a **Claude Code rewrite** (SKILL.md + install path only). It doe
 
 This pack ships a **Claude Code workflow rewrite** plus install notes (`notes/archify-claude-code.md`). It does **not** vendor the full proprietary-adjacent binary/assets tree or paste upstream SKILL.md / reference contracts verbatim. For validated HTML delivery, install the upstream `archify/` engine (see README) and point `ARCHIFY_HOME` at it, or replace `~/.claude/skills/archify` with the full upstream skill tree.
 
+## Grilling
+
+`skills/grilling/SKILL.md` is copied **verbatim** from Matt Pocock's skills repo (MIT):
+
+- Source: https://github.com/mattpocock/skills/tree/main/skills/productivity/grilling
+- License: MIT, Copyright (c) 2026 Matt Pocock (see upstream `LICENSE`)
+
 ## Other links
 
 - Claude Code skills: https://code.claude.com/docs/en/skills
