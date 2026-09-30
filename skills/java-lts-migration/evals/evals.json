@@ -1,0 +1,69 @@
+{
+  "skill_name": "java-lts-migration",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Upgrade this Maven service from Java 8 to Java 11. It uses JAXB for XML payloads and @PostConstruct in a few beans.",
+      "expected_output": "A green build on JDK 11 with explicit JAXB and javax.annotation dependencies added, no --add-modules hacks, and a PR with before/after test counts.",
+      "files": [],
+      "expectations": [
+        "Records a Java 8 baseline (build, test count) before changing the Java version",
+        "Runs the OpenRewrite Java8toJava11 recipe on JDK 8, or states why it was skipped",
+        "Adds jakarta.xml.bind-api 2.3.x plus jaxb-runtime and jakarta.annotation-api 1.3.x, keeping javax.* packages",
+        "Does not add --add-modules java.xml.bind or other removed-module workarounds",
+        "Replaces legacy GC logging flags with -Xlog:gc* where they exist",
+        "Reports the same test count on JDK 11 as on the baseline"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Move our Gradle project from Java 11 to 17. Gradle wrapper is 6.8, we use Lombok 1.18.12 and Mockito 3.",
+      "expected_output": "Wrapper upgraded to at least 7.3 in its own commit before the JDK switch, Lombok and Mockito upgraded, build green on 17 without --add-opens.",
+      "files": [],
+      "expectations": [
+        "Upgrades the Gradle wrapper to 7.3 or later before switching the toolchain to 17",
+        "Uses a toolchain without also setting sourceCompatibility/targetCompatibility",
+        "Upgrades Lombok to at least 1.18.22 and Mockito to at least 4",
+        "Does not add --add-opens when a library upgrade resolves the InaccessibleObjectException",
+        "Creates and updates MIGRATION_PLAN.md with baseline and verification sections"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Upgrade this app from Java 17 to 21. There's a custom ImmutableList class with getFirst() and reversed() methods, and a model class called Record.",
+      "expected_output": "Compile errors from sequenced collections and the Record name clash fixed with minimal, mechanical edits; no unrelated refactors.",
+      "files": [],
+      "expectations": [
+        "Identifies the sequenced-collections clash on the custom collection's getFirst()/reversed()",
+        "Fixes the Record ambiguity with an explicit import rather than renaming the domain class",
+        "Mentions UTF-8 default charset and CLDR 42 time-format changes as behavior risks to check",
+        "Does not introduce records, virtual threads or other new language features"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "We're on Java 21 with Spring Boot 3.4, Lombok 1.18.30 and MapStruct. Take us to Java 25.",
+      "expected_output": "Lombok, JaCoCo and bytecode libraries upgraded to Java 25-capable versions, annotation processors declared explicitly, Spring Boot moved to a 25-capable 3.5.x patch only if needed.",
+      "files": [],
+      "expectations": [
+        "Upgrades Lombok to 1.18.42 or later and JaCoCo to 0.8.14 or later",
+        "Declares Lombok and MapStruct in annotationProcessorPaths instead of relying on implicit processing or -proc:full",
+        "Checks the framework gate: Spring Boot 3.5.5+ or 4.0 for Java 25",
+        "Removes -XX:+ZGenerational/-XX:-ZGenerational and any -Djava.security.manager flags if present",
+        "Runs check-bytecode.sh 25 and reports the result"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Upgrade this Java 8 Spring Boot 2.3 app straight to Java 25.",
+      "expected_output": "The skill plans 8 → 11 → 17 → 21 hops, stops at the framework gate for 25 (Boot 2.x ends at JDK 21), and explains that Boot 3 + jakarta is a separate migration.",
+      "files": [],
+      "expectations": [
+        "Plans the migration as separate LTS hops rather than one jump",
+        "Stops before the 21 → 25 hop because Spring Boot 2.x does not support Java 25",
+        "Does not start a Spring Boot 3 / jakarta migration inside the JDK hop",
+        "Tells the user clearly which hops can proceed and what blocks the last one"
+      ]
+    }
+  ]
+}

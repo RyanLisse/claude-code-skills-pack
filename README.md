@@ -8,6 +8,7 @@ A small, public pack of **Claude Code** skills for Worldline / everyday shipping
 4. **`/archify`** — architecture / workflow / sequence maps via [Archify](https://github.com/tt-a1i/archify) (Claude Code workflow adapter + engine install path)
 5. **`/handoff`** — write clipboard-ready prompts for another agent to investigate or continue a task
 6. **`/grilling`** — get grilled round by round on a plan, decision, or idea until nothing is silently assumed
+7. **`/java-lts-migration`** — upgrade a Java codebase one LTS hop at a time (8 → 11 → 17 → 21 → 25) with OpenRewrite first, a checkpoint plan, and test-parity evidence
 
 Aimed at non-experts: copy skills in, type `/skill-name`, get structured help.
 
@@ -27,6 +28,7 @@ Aimed at non-experts: copy skills in, type `/skill-name`, get structured help.
 | archify | `/archify` | Validated interactive HTML system maps (needs Archify engine) |
 | handoff | `/handoff` | Clipboard-ready prompts for another agent |
 | grilling | `/grilling` | Stress-test a plan via rounds of numbered questions with recommended answers |
+| java-lts-migration | `/java-lts-migration` | Java 8/11/17/21 → next LTS: plan file, OpenRewrite pass, build-fix loop, verification scripts |
 
 Optional notes: [`notes/CLAUDE.md.snippets.md`](notes/CLAUDE.md.snippets.md), [`notes/hooks-notes.md`](notes/hooks-notes.md), [`notes/archify-claude-code.md`](notes/archify-claude-code.md), [`notes/whats-new-vs-8ff9a8dc.md`](notes/whats-new-vs-8ff9a8dc.md).
 
@@ -80,6 +82,7 @@ Replace `~/.claude/skills` with `.claude/skills` for project-only installs.
 | **cli-for-agents** | `cp -R skills/cli-for-agents ~/.claude/skills/` → `/cli-for-agents …` |
 | **handoff** | `cp -R skills/handoff ~/.claude/skills/` → `/handoff …` |
 | **grilling** | `cp -R skills/grilling ~/.claude/skills/` → `/grilling …` |
+| **java-lts-migration** | `cp -R skills/java-lts-migration ~/.claude/skills/` → `/java-lts-migration 21` (needs a JDK and Maven or Gradle; OpenRewrite optional) |
 | **archify** | See **Archify** below (skill + engine) |
 
 Then in Claude Code:

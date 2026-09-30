@@ -62,6 +62,14 @@ This pack ships a **Claude Code workflow rewrite** plus install notes (`notes/ar
 - Source: https://github.com/mattpocock/skills/tree/main/skills/productivity/grilling
 - License: MIT, Copyright (c) 2026 Matt Pocock (see upstream `LICENSE`)
 
+## Java LTS migration
+
+`skills/java-lts-migration/` is an **original work** for Claude Code. It started from a Java 8 → 11 Devin playbook written for internal use and was restructured after comparing comparable skills and agent workflows (not copied):
+
+- G10xy/java-version-upgrade-skill, claudioed/claude-skills, savitharaghunathan/migration-skills, decebals/claude-code-java — skill structure (per-hop reference files, analysis scripts)
+- GitHub Copilot modernization (`plan.md` / progress checkpoints), Amazon Q Developer code transformation (minimal upgrade first, verify after each step), Google's "Migrating Code At Scale With LLMs" (Ziftci et al., FSE 2025: deterministic changes first, LLM for the remainder, automatic validation)
+- OpenRewrite `rewrite-migrate-java` recipes and docs; OpenJDK JEPs and Oracle JDK migration guides and release notes for the per-hop content
+
 ## Other links
 
 - Claude Code skills: https://code.claude.com/docs/en/skills
