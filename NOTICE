@@ -43,3 +43,61 @@ Changes: commands checked against package.json/Makefile/CI; progressive
 disclosure into linked docs made the primary technique and <important if>
 blocks optional; output is a proposed diff the user approves instead of a
 rewrite; example reworked; text shortened and edited.
+
+Also adapted from the same commit (modified):
+  plugins/show-me/skills/show-me/SKILL.md
+      -> skills/visual-plan/SKILL.md (smallest-view rule)
+         skills/diagram/SKILL.md (text views, Mermaid-first route)
+
+Changes: ideas reworked into two skills with new wording; HTML output made
+strictly offline; evidence rule and budgets added.
+
+------------------------------------------------------------------------
+display.dev — display-dev/visualize (MIT License)
+------------------------------------------------------------------------
+Source:  https://github.com/display-dev/visualize
+Commit:  077004e7979e5effb1a4ad1f8679ba3f5acfae59 (skill version 0.8.0)
+License: MIT, Copyright (c) 2026 display.dev (full text: LICENSES/MIT-display-dev.txt)
+Upstream NOTICE file: none at repo root; visualize/NOTICES.md lists the
+third-party material inside the skill (vendored bundles, Apache-2.0 and
+CC BY 4.0 adaptations in reference/color.md and reference/explore-system.md).
+
+Adapted files (modified):
+  visualize/SKILL.md, visualize/reference/create.md
+      -> skills/visual-plan/SKILL.md (also via Ryan Lisse's own
+         visualize-html-artifacts workflow, distilled from v0.8.0)
+  visualize/templates/implementation-plan/template.md
+  visualize/templates/plan-review/template.md
+  visualize/templates/diff-review/template.md
+  visualize/templates/project-recap/template.md
+      -> skills/visual-plan/references/kinds.md
+  visualize/reference/diagram.md, diagram-system.md,
+  diagram-sequence.md, diagram-flow.md, diagram-state.md,
+  diagram-hierarchy.md
+      -> skills/diagram/SKILL.md (type routing, budgets, failure modes)
+
+Not used (per visualize/NOTICES.md): reference/color.md and
+reference/explore-system.md (CC BY 4.0 / Apache-2.0 adapted material),
+vendored bundles; also not used: detector scripts, design systems.
+
+Changes: 35 templates reduced to four kinds; shape check before building;
+strictly offline output; text shortened and rewritten for Claude Code.
+
+------------------------------------------------------------------------
+Cocoon AI — Cocoon-AI/architecture-diagram-generator (MIT License)
+------------------------------------------------------------------------
+Source:  https://github.com/Cocoon-AI/architecture-diagram-generator
+Commit:  4b9087d55268c79a935105439dbcd37b630fc3f3
+License: MIT, Copyright (c) 2025 Cocoon AI (full text: LICENSES/MIT-Cocoon-AI.txt)
+Upstream NOTICE file: none at this commit.
+
+Adapted files (modified):
+  architecture-diagram/SKILL.md
+      -> skills/diagram/SKILL.md (SVG layout rules: edge z-order, masking
+         translucent fills, spacing, legend outside boundaries, role colors)
+
+Not used: resources/template.html, examples, and the CDN export toolbar
+(html2canvas, jsPDF). skills/diagram/assets/diagram.html is an original file.
+
+Changes: dark-only palette and JetBrains Mono web font replaced by
+light/dark tokens and system fonts; no network dependencies; text rewritten.

@@ -11,6 +11,8 @@ A small, public pack of **Claude Code** skills for Worldline / everyday shipping
 7. **`/java-lts-migration`** — upgrade a Java codebase one LTS hop at a time (8 → 11 → 17 → 21 → 25) with OpenRewrite first, a checkpoint plan, and test-parity evidence
 8. **`/rpi`** — research → plan → implement in verified phases, with a human approving the plan and reviewing before merge
 9. **`/improve-claude-md`** — audit a repo's `CLAUDE.md` and propose a shorter, accurate version as a diff
+10. **`/visual-plan`** — turn a plan, plan review, diff review or recap into one self-contained HTML page
+11. **`/diagram`** — architecture, sequence and flow diagrams as Mermaid, or an offline HTML file with inline SVG
 
 Aimed at non-experts: copy skills in, type `/skill-name`, get structured help.
 
@@ -33,6 +35,8 @@ Aimed at non-experts: copy skills in, type `/skill-name`, get structured help.
 | java-lts-migration | `/java-lts-migration` | Java 8/11/17/21 → next LTS: plan file, OpenRewrite pass, build-fix loop, verification scripts |
 | rpi | `/rpi` | Research → plan → implement along `docs/intent.md` → `spec.md` → `plan.md` → `PROGRESS.md` → `docs/review.md`; human approves plan and reviews |
 | improve-claude-md | `/improve-claude-md` | Check `CLAUDE.md` commands against the repo, cut stale lines, move detail to linked docs; proposes a diff, never rewrites silently |
+| visual-plan | `/visual-plan` | Plan, plan review, diff/PR review or recap → one offline HTML file (shape check first, no CDN, light/dark, phone width) |
+| diagram | `/diagram` | Architecture / sequence / flow / state diagrams from real code: Mermaid in chat, or HTML + inline SVG; no install (use `/archify` for validated system maps) |
 
 Optional notes: [`notes/CLAUDE.md.snippets.md`](notes/CLAUDE.md.snippets.md), [`notes/hooks-notes.md`](notes/hooks-notes.md), [`notes/archify-claude-code.md`](notes/archify-claude-code.md), [`notes/whats-new-vs-8ff9a8dc.md`](notes/whats-new-vs-8ff9a8dc.md).
 
@@ -89,6 +93,8 @@ Replace `~/.claude/skills` with `.claude/skills` for project-only installs.
 | **java-lts-migration** | `cp -R skills/java-lts-migration ~/.claude/skills/` → `/java-lts-migration 21` (needs a JDK and Maven or Gradle; OpenRewrite optional) |
 | **rpi** | `cp -R skills/rpi ~/.claude/skills/` → `/rpi docs/intent.md` |
 | **improve-claude-md** | `cp -R skills/improve-claude-md ~/.claude/skills/` → `/improve-claude-md` |
+| **visual-plan** | `cp -R skills/visual-plan ~/.claude/skills/` → `/visual-plan plan plan.md` |
+| **diagram** | `cp -R skills/diagram ~/.claude/skills/` → `/diagram sequence checkout flow` |
 | **archify** | See **Archify** below (skill + engine) |
 
 Then in Claude Code:
@@ -146,7 +152,9 @@ See [`notes/whats-new-vs-8ff9a8dc.md`](notes/whats-new-vs-8ff9a8dc.md): added **
 
 ## Contributors / credits
 
-- **[HumanLayer](https://github.com/humanlayer)** — `/rpi` is adapted from HumanLayer's `research_codebase`, `create_plan` and `implement_plan` Claude Code commands (Apache-2.0); `/improve-claude-md` is adapted from HumanLayer's `improve-claude-md` skill (MIT). Both were modified for this pack; see [NOTICE](NOTICE).
+- **[HumanLayer](https://github.com/humanlayer)** — `/rpi` is adapted from HumanLayer's `research_codebase`, `create_plan` and `implement_plan` Claude Code commands (Apache-2.0); `/improve-claude-md` is adapted from HumanLayer's `improve-claude-md` skill (MIT). `/visual-plan` and `/diagram` borrow the "smallest view that makes the point" approach and the text/Mermaid views from HumanLayer's `show-me` skill (MIT). All were modified for this pack; see [NOTICE](NOTICE).
+- **[display.dev](https://github.com/display-dev/visualize)** — `/visual-plan` structure (plan, plan review, diff review, recap) and `/diagram` type routing and budgets are adapted from display-dev/visualize (MIT), modified.
+- **[Cocoon AI](https://github.com/Cocoon-AI/architecture-diagram-generator)** — `/diagram` SVG layout rules (edge z-order, masking, spacing, legend placement, role colors) are adapted from the `architecture-diagram` skill (MIT), modified.
 - **[Matt Pocock](https://github.com/mattpocock/skills)** — `/grilling` (MIT).
 - **[Cursor](https://github.com/cursor/plugins)** — team-kit ports and `/cli-for-agents` (MIT).
 - **[tt-a1i/archify](https://github.com/tt-a1i/archify)** — Archify engine and upstream skill (MIT).
@@ -157,4 +165,4 @@ See [ATTRIBUTION.md](ATTRIBUTION.md). Ports are **rewritten for Claude Code**; t
 
 ## License
 
-MIT — see [LICENSE](LICENSE). Upstream Cursor plugin sources, Archify and HumanLayer's skills repo are MIT; HumanLayer's commands used by `/rpi` are Apache-2.0. Third-party license texts are in [`LICENSES/`](LICENSES/) and notices in [NOTICE](NOTICE).
+MIT — see [LICENSE](LICENSE). Upstream Cursor plugin sources, Archify, HumanLayer's skills repo, display-dev/visualize and Cocoon AI's architecture-diagram-generator are MIT; HumanLayer's commands used by `/rpi` are Apache-2.0. Third-party license texts are in [`LICENSES/`](LICENSES/) and notices in [NOTICE](NOTICE).

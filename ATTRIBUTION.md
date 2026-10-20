@@ -85,9 +85,27 @@ Both skills are **adapted copies** of HumanLayer material, credited to HumanLaye
 - **Modified for this pack:** the W5 artifact chain (`docs/intent.md` → `spec.md` → `plan.md` → `PROGRESS.md` → `docs/review.md`); a recorded human plan approval and human review before merge; built-in Claude Code subagents only, no MCP or API key; thoughts/, Linear and model pins removed; for improve-claude-md, commands checked against the repo, progressive disclosure first, and a proposed diff instead of a rewrite.
 - Background reading that shaped the edits: HumanLayer, ["Writing a good CLAUDE.md"](https://www.humanlayer.dev/blog/writing-a-good-claude-md) and ["Advanced Context Engineering for Coding Agents"](https://github.com/humanlayer/advanced-context-engineering-for-coding-agents).
 
+## Visual plan and Diagram
+
+Both skills are **adapted** from MIT sources and rewritten for Claude Code. Each `SKILL.md` carries a header naming its sources and saying it was modified. Full details are in [NOTICE](NOTICE).
+
+| This repo | Upstream | License |
+|-----------|----------|---------|
+| `skills/visual-plan/SKILL.md` | Ryan Lisse's `visualize-html-artifacts` workflow (own work, itself distilled from display-dev/visualize v0.8.0) | MIT |
+| `skills/visual-plan/SKILL.md`, `skills/visual-plan/references/kinds.md` | [display-dev/visualize](https://github.com/display-dev/visualize) `visualize/SKILL.md`, `visualize/reference/create.md`, `visualize/templates/{implementation-plan,plan-review,diff-review,project-recap}/template.md` @ `077004e` | MIT, Copyright (c) 2026 display.dev |
+| `skills/diagram/SKILL.md` | same repo, `visualize/reference/diagram.md`, `diagram-system.md`, `diagram-sequence.md`, `diagram-flow.md`, `diagram-state.md`, `diagram-hierarchy.md` @ `077004e` | MIT, Copyright (c) 2026 display.dev |
+| `skills/diagram/SKILL.md` | [Cocoon-AI/architecture-diagram-generator](https://github.com/Cocoon-AI/architecture-diagram-generator) `architecture-diagram/SKILL.md` @ `4b9087d` | MIT, Copyright (c) 2025 Cocoon AI |
+| `skills/visual-plan/SKILL.md`, `skills/diagram/SKILL.md` | [humanlayer/skills](https://github.com/humanlayer/skills) `plugins/show-me/skills/show-me/SKILL.md` @ `653b641` | MIT, Copyright (c) 2026 HumanLayer |
+
+- License texts: [`LICENSES/MIT-display-dev.txt`](LICENSES/MIT-display-dev.txt), [`LICENSES/MIT-Cocoon-AI.txt`](LICENSES/MIT-Cocoon-AI.txt), [`LICENSES/MIT-HumanLayer.txt`](LICENSES/MIT-HumanLayer.txt). None of the three upstream repos has a root NOTICE file at those commits; display-dev/visualize keeps per-skill notices in `visualize/NOTICES.md`.
+- **Not used:** display-dev/visualize `reference/color.md` and `reference/explore-system.md` (its `visualize/NOTICES.md` marks them as carrying CC BY 4.0 / Apache-2.0 adapted material), its detector scripts, design systems and vendored bundles; Cocoon AI's `template.html` and its CDN export toolbar (html2canvas, jsPDF). `assets/skeleton.html` and `assets/diagram.html` are original files written for this pack.
+- **Modified for this pack:** four kinds only (plan, review, diff, recap) instead of 35 templates; a one-message shape check before building; strictly offline output (no CDN scripts, no web fonts); Mermaid in chat as the default diagram route with inline SVG as the file route; evidence rule (no invented nodes, edges or owners); text shortened and edited.
+
 ## Other links
 
 - Claude Code skills: https://code.claude.com/docs/en/skills
 - skills.sh: https://www.skills.sh/
 - mattpocock/skills: https://github.com/mattpocock/skills
 - humanlayer show-me: https://github.com/humanlayer/skills/tree/main/plugins/show-me
+- display-dev/visualize: https://github.com/display-dev/visualize
+- Cocoon-AI/architecture-diagram-generator: https://github.com/Cocoon-AI/architecture-diagram-generator
