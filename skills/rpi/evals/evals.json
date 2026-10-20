@@ -1,0 +1,63 @@
+{
+  "skill_name": "rpi",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "/rpi docs/intent.md (the intent asks for CSV export on the reports page; no spec.md or plan.md exists yet)",
+      "expected_output": "A research file with path:line citations, a drafted spec.md for the human to accept, then a phased plan.md, and a stop for plan approval before any code changes.",
+      "files": [],
+      "expectations": [
+        "Writes docs/research/YYYY-MM-DD-<slug>.md with path:line citations and no proposed fixes",
+        "Lists build/test/lint commands that match package.json or the Makefile",
+        "Drafts spec.md with acceptance criteria and asks the human to accept it",
+        "Writes plan.md with phases, each having automated and manual verification",
+        "Stops and asks for plan approval without editing source files"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "/rpi continue. plan.md is approved, phase 1 is ticked, phase 2 is not.",
+      "expected_output": "Resumes at phase 2, runs its verification, ticks it and appends a PROGRESS.md entry before moving on.",
+      "files": [],
+      "expectations": [
+        "Reads plan.md and PROGRESS.md before changing code",
+        "Does not redo phase 1",
+        "Runs phase 2's automated verification commands and reports their results",
+        "Ticks phase 2 in plan.md and appends a past-tense PROGRESS.md entry"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "/rpi add rate limiting to the API (there is no docs/intent.md)",
+      "expected_output": "Asks the human for the intent or offers a draft for them to edit, instead of inventing goals and starting research.",
+      "files": [],
+      "expectations": [
+        "Notices docs/intent.md is missing",
+        "Asks the human to write or approve an intent before planning",
+        "Does not write plan.md or change code"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "/rpi continue. During phase 2 the planned file src/report/export.ts turns out to have been deleted upstream.",
+      "expected_output": "Stops, explains the mismatch, proposes a plan change and waits for approval.",
+      "files": [],
+      "expectations": [
+        "Stops implementation when the code disagrees with the plan",
+        "Proposes a concrete edit to plan.md and records it under Plan changes after approval",
+        "Does not improvise a different design without approval"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "/rpi continue. All phases are ticked and green.",
+      "expected_output": "Writes docs/review.md mapping acceptance criteria to evidence and hands off to a human without merging.",
+      "files": [],
+      "expectations": [
+        "Writes docs/review.md with each spec.md acceptance criterion and its evidence",
+        "Lists deviations from the plan and what was not verified",
+        "Does not merge or mark the review approved"
+      ]
+    }
+  ]
+}

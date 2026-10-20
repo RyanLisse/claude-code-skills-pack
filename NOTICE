@@ -1,0 +1,45 @@
+Claude Code Skills Pack
+Copyright (c) 2026 Ryan Lisse. Licensed under the MIT License (see LICENSE).
+
+This product includes material adapted from third-party projects.
+
+------------------------------------------------------------------------
+HumanLayer — humanlayer/humanlayer (Apache License 2.0)
+------------------------------------------------------------------------
+Source:  https://github.com/humanlayer/humanlayer
+Commit:  99abe673498cf8bdcd5f989aebe9406a27185b3b
+License: Apache License, Version 2.0 (full text: LICENSES/Apache-2.0.txt)
+Upstream copyright line: "Copyright (c) 2024, humanlayer Authors"
+Upstream NOTICE file: none at this commit.
+
+Adapted files (all modified; each carries a header stating the changes):
+  .claude/commands/research_codebase_generic.md -> skills/rpi/references/research.md
+                                                   skills/rpi/assets/research.md
+  .claude/commands/create_plan_generic.md       -> skills/rpi/references/plan.md
+                                                   skills/rpi/assets/plan.md
+  .claude/commands/implement_plan.md            -> skills/rpi/references/implement.md
+  (workflow summarized in)                         skills/rpi/SKILL.md
+
+Changes: output paths moved to the W5 artifact chain (docs/intent.md ->
+spec.md -> plan.md -> PROGRESS.md -> docs/review.md); thoughts/, Linear,
+model pins and custom subagents removed; built-in Claude Code subagents
+only (no MCP, no API key); recorded human plan approval and human review
+before merge added; text shortened and edited.
+
+------------------------------------------------------------------------
+HumanLayer — humanlayer/skills (MIT License)
+------------------------------------------------------------------------
+Source:  https://github.com/humanlayer/skills
+Commit:  653b6411c1f70c275a18e37673b042ff99f67ceb
+License: MIT, Copyright (c) 2026 HumanLayer (full text: LICENSES/MIT-HumanLayer.txt)
+Upstream NOTICE file: none at this commit.
+
+Adapted files (modified):
+  plugins/improve-claude-md/skills/improve-claude-md/SKILL.md
+      -> skills/improve-claude-md/SKILL.md
+         skills/improve-claude-md/references/example.md
+
+Changes: commands checked against package.json/Makefile/CI; progressive
+disclosure into linked docs made the primary technique and <important if>
+blocks optional; output is a proposed diff the user approves instead of a
+rewrite; example reworked; text shortened and edited.

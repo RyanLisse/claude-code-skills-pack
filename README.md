@@ -9,6 +9,8 @@ A small, public pack of **Claude Code** skills for Worldline / everyday shipping
 5. **`/handoff`** — write clipboard-ready prompts for another agent to investigate or continue a task
 6. **`/grilling`** — get grilled round by round on a plan, decision, or idea until nothing is silently assumed
 7. **`/java-lts-migration`** — upgrade a Java codebase one LTS hop at a time (8 → 11 → 17 → 21 → 25) with OpenRewrite first, a checkpoint plan, and test-parity evidence
+8. **`/rpi`** — research → plan → implement in verified phases, with a human approving the plan and reviewing before merge
+9. **`/improve-claude-md`** — audit a repo's `CLAUDE.md` and propose a shorter, accurate version as a diff
 
 Aimed at non-experts: copy skills in, type `/skill-name`, get structured help.
 
@@ -29,6 +31,8 @@ Aimed at non-experts: copy skills in, type `/skill-name`, get structured help.
 | handoff | `/handoff` | Clipboard-ready prompts for another agent |
 | grilling | `/grilling` | Stress-test a plan via rounds of numbered questions with recommended answers |
 | java-lts-migration | `/java-lts-migration` | Java 8/11/17/21 → next LTS: plan file, OpenRewrite pass, build-fix loop, verification scripts |
+| rpi | `/rpi` | Research → plan → implement along `docs/intent.md` → `spec.md` → `plan.md` → `PROGRESS.md` → `docs/review.md`; human approves plan and reviews |
+| improve-claude-md | `/improve-claude-md` | Check `CLAUDE.md` commands against the repo, cut stale lines, move detail to linked docs; proposes a diff, never rewrites silently |
 
 Optional notes: [`notes/CLAUDE.md.snippets.md`](notes/CLAUDE.md.snippets.md), [`notes/hooks-notes.md`](notes/hooks-notes.md), [`notes/archify-claude-code.md`](notes/archify-claude-code.md), [`notes/whats-new-vs-8ff9a8dc.md`](notes/whats-new-vs-8ff9a8dc.md).
 
@@ -83,6 +87,8 @@ Replace `~/.claude/skills` with `.claude/skills` for project-only installs.
 | **handoff** | `cp -R skills/handoff ~/.claude/skills/` → `/handoff …` |
 | **grilling** | `cp -R skills/grilling ~/.claude/skills/` → `/grilling …` |
 | **java-lts-migration** | `cp -R skills/java-lts-migration ~/.claude/skills/` → `/java-lts-migration 21` (needs a JDK and Maven or Gradle; OpenRewrite optional) |
+| **rpi** | `cp -R skills/rpi ~/.claude/skills/` → `/rpi docs/intent.md` |
+| **improve-claude-md** | `cp -R skills/improve-claude-md ~/.claude/skills/` → `/improve-claude-md` |
 | **archify** | See **Archify** below (skill + engine) |
 
 Then in Claude Code:
@@ -138,10 +144,17 @@ See [`notes/whats-new-vs-8ff9a8dc.md`](notes/whats-new-vs-8ff9a8dc.md): added **
 - [tt-a1i/archify](https://github.com/tt-a1i/archify) — Archify engine + upstream skill
 - [cursor/plugins cli-for-agent](https://github.com/cursor/plugins/tree/main/cli-for-agent) — upstream CLI-for-agents patterns
 
+## Contributors / credits
+
+- **[HumanLayer](https://github.com/humanlayer)** — `/rpi` is adapted from HumanLayer's `research_codebase`, `create_plan` and `implement_plan` Claude Code commands (Apache-2.0); `/improve-claude-md` is adapted from HumanLayer's `improve-claude-md` skill (MIT). Both were modified for this pack; see [NOTICE](NOTICE).
+- **[Matt Pocock](https://github.com/mattpocock/skills)** — `/grilling` (MIT).
+- **[Cursor](https://github.com/cursor/plugins)** — team-kit ports and `/cli-for-agents` (MIT).
+- **[tt-a1i/archify](https://github.com/tt-a1i/archify)** — Archify engine and upstream skill (MIT).
+
 ## Attribution
 
 See [ATTRIBUTION.md](ATTRIBUTION.md). Ports are **rewritten for Claude Code**; they are not a Cursor plugin install. ELI5 is an original rewrite inspired by public ELI5 writeups — not a verbatim copy of proprietary skill text.
 
 ## License
 
-MIT — see [LICENSE](LICENSE). Upstream Cursor plugin sources and Archify are MIT; retained in attribution.
+MIT — see [LICENSE](LICENSE). Upstream Cursor plugin sources, Archify and HumanLayer's skills repo are MIT; HumanLayer's commands used by `/rpi` are Apache-2.0. Third-party license texts are in [`LICENSES/`](LICENSES/) and notices in [NOTICE](NOTICE).

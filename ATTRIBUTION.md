@@ -70,6 +70,21 @@ This pack ships a **Claude Code workflow rewrite** plus install notes (`notes/ar
 - GitHub Copilot modernization (`plan.md` / progress checkpoints), Amazon Q Developer code transformation (minimal upgrade first, verify after each step), Google's "Migrating Code At Scale With LLMs" (Ziftci et al., FSE 2025: deterministic changes first, LLM for the remainder, automatic validation)
 - OpenRewrite `rewrite-migrate-java` recipes and docs; OpenJDK JEPs and Oracle JDK migration guides and release notes for the per-hop content
 
+## RPI and Improve CLAUDE.md (HumanLayer)
+
+Both skills are **adapted copies** of HumanLayer material, credited to HumanLayer as contributors. Every adapted file carries a header naming its source and saying it was modified. Full details, including file mapping, are in [NOTICE](NOTICE).
+
+| This repo | Upstream | License |
+|-----------|----------|---------|
+| `skills/rpi/references/research.md`, `skills/rpi/assets/research.md` | [humanlayer/humanlayer](https://github.com/humanlayer/humanlayer) `.claude/commands/research_codebase_generic.md` @ `99abe67` | Apache-2.0, Copyright (c) 2024, humanlayer Authors |
+| `skills/rpi/references/plan.md`, `skills/rpi/assets/plan.md` | same repo, `.claude/commands/create_plan_generic.md` @ `99abe67` | Apache-2.0 |
+| `skills/rpi/references/implement.md` | same repo, `.claude/commands/implement_plan.md` @ `99abe67` | Apache-2.0 |
+| `skills/improve-claude-md/SKILL.md`, `references/example.md` | [humanlayer/skills](https://github.com/humanlayer/skills) `plugins/improve-claude-md/skills/improve-claude-md/SKILL.md` @ `653b641` | MIT, Copyright (c) 2026 HumanLayer |
+
+- License texts: [`LICENSES/Apache-2.0.txt`](LICENSES/Apache-2.0.txt), [`LICENSES/MIT-HumanLayer.txt`](LICENSES/MIT-HumanLayer.txt). Neither upstream repo has a NOTICE file at those commits.
+- **Modified for this pack:** the W5 artifact chain (`docs/intent.md` → `spec.md` → `plan.md` → `PROGRESS.md` → `docs/review.md`); a recorded human plan approval and human review before merge; built-in Claude Code subagents only, no MCP or API key; thoughts/, Linear and model pins removed; for improve-claude-md, commands checked against the repo, progressive disclosure first, and a proposed diff instead of a rewrite.
+- Background reading that shaped the edits: HumanLayer, ["Writing a good CLAUDE.md"](https://www.humanlayer.dev/blog/writing-a-good-claude-md) and ["Advanced Context Engineering for Coding Agents"](https://github.com/humanlayer/advanced-context-engineering-for-coding-agents).
+
 ## Other links
 
 - Claude Code skills: https://code.claude.com/docs/en/skills
