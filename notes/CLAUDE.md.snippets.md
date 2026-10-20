@@ -12,6 +12,8 @@ This repo may use skills from RyanLisse/claude-code-skills-pack:
 - `/fix-ci`, `/get-pr-comments`, `/make-pr-easy-to-review`, `/new-branch-and-pr`, `/review-and-ship` for PR/CI flow
 - `/cli-for-agents` when designing or reviewing CLIs for headless/agent use
 - `/archify` for validated interactive HTML architecture/workflow maps (needs Archify engine / `ARCHIFY_HOME`)
+- `/rpi` for multi-file changes: research, human-approved plan, verified phases, review file
+- `/improve-claude-md` to audit this file; it proposes a diff and waits for approval
 
 Prefer invoking skills with `/name` for side-effect workflows (ship, CI, PR).
 ```
