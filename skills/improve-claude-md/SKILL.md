@@ -10,7 +10,9 @@ argument-hint: "[path to CLAUDE.md]"
 
 Claude Code loads `CLAUDE.md` into every session. Every line costs context, and a wrong command costs a failed run. Make it short, true and current, then **propose** the change. Never rewrite the file silently.
 
-Target: $ARGUMENTS (default: `./CLAUDE.md`)
+Target: $ARGUMENTS
+
+With a path, audit and diff only that file. Without one, audit `./CLAUDE.md` and list any other `CLAUDE.md` files you find so the user can ask for them next.
 
 ## Why it matters
 
@@ -38,8 +40,8 @@ Lines that do not apply to the task at hand still take attention. The more of th
 
 ### 1. Find the files
 
-- Root `CLAUDE.md`, `.claude/CLAUDE.md`, and nested `CLAUDE.md` files in subdirectories.
-- Files pulled in with `@path` imports; they count toward the size.
+- The target file (see above). Without an argument, also note `.claude/CLAUDE.md` and nested `CLAUDE.md` files, but do not audit them unless asked.
+- Files the target pulls in with `@path` imports; they count toward its size.
 - Docs it links to. Note links to missing files.
 
 ### 2. Collect the facts
@@ -78,7 +80,7 @@ Show, in this order:
 
 1. **Summary:** line count before → after; counts of kept, fixed, moved and cut items.
 2. **Findings table:** each changed line, its verdict and the reason (`npm test` → `pnpm test`: repo has `pnpm-lock.yaml`).
-3. **Unified diff** of `CLAUDE.md`.
+3. **Unified diff** of the target file.
 4. **New files** with full contents, if anything moved.
 5. **Unsure items:** lines you could not verify. Ask instead of guessing.
 

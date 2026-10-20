@@ -74,8 +74,8 @@ Follow `references/implement.md`, phase by phase:
 
 1. Make the phase's changes.
 2. Run its automated verification. Stop after 3 failed attempts on the same problem.
-3. Tick the phase in `plan.md` and append a `PROGRESS.md` entry with the commands and results.
-4. Pause for manual verification if the phase lists any.
+3. Tick the automated items in `plan.md` and append a `PROGRESS.md` entry with the commands and results.
+4. If the phase lists manual verification, pause. Tick those items, and treat the phase as done, only after the human confirms.
 
 If the code disagrees with the plan, stop, propose a plan change and wait for approval.
 

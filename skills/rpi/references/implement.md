@@ -57,7 +57,7 @@ Please check:
 Tell me when this is done so I can start Phase [N+1].
 ```
 
-Do not tick manual items until the human confirms them. If the human asked for several phases in a row, pause only after the last one.
+Do not tick manual items until the human confirms them. A phase is complete only when both groups are ticked. If the human asked for several phases in a row, pause only after the last one.
 
 Never skip hooks, disable tests or weaken a check to get green.
 
