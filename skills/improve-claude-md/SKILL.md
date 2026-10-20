@@ -14,7 +14,7 @@ Target: $ARGUMENTS (default: `./CLAUDE.md`)
 
 ## Why it matters
 
-Claude Code wraps `CLAUDE.md` in a reminder that the context "may or may not be relevant" to the task. The more of the file that does not apply to the task at hand, the more likely Claude is to skip all of it, including the parts that matter.
+Lines that do not apply to the task at hand still take attention. The more of the file that is irrelevant, the more likely Claude is to skim past the parts that matter.
 
 ## Rules
 

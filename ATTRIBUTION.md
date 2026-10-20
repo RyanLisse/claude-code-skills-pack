@@ -79,7 +79,7 @@ Both skills are **adapted copies** of HumanLayer material, credited to HumanLaye
 | `skills/rpi/references/research.md`, `skills/rpi/assets/research.md` | [humanlayer/humanlayer](https://github.com/humanlayer/humanlayer) `.claude/commands/research_codebase_generic.md` @ `99abe67` | Apache-2.0, Copyright (c) 2024, humanlayer Authors |
 | `skills/rpi/references/plan.md`, `skills/rpi/assets/plan.md` | same repo, `.claude/commands/create_plan_generic.md` @ `99abe67` | Apache-2.0 |
 | `skills/rpi/references/implement.md` | same repo, `.claude/commands/implement_plan.md` @ `99abe67` | Apache-2.0 |
-| `skills/improve-claude-md/SKILL.md`, `references/example.md` | [humanlayer/skills](https://github.com/humanlayer/skills) `plugins/improve-claude-md/skills/improve-claude-md/SKILL.md` @ `653b641` | MIT, Copyright (c) 2026 HumanLayer |
+| `skills/improve-claude-md/SKILL.md`, `skills/improve-claude-md/references/example.md` | [humanlayer/skills](https://github.com/humanlayer/skills) `plugins/improve-claude-md/skills/improve-claude-md/SKILL.md` @ `653b641` | MIT, Copyright (c) 2026 HumanLayer |
 
 - License texts: [`LICENSES/Apache-2.0.txt`](LICENSES/Apache-2.0.txt), [`LICENSES/MIT-HumanLayer.txt`](LICENSES/MIT-HumanLayer.txt). Neither upstream repo has a NOTICE file at those commits.
 - **Modified for this pack:** the W5 artifact chain (`docs/intent.md` → `spec.md` → `plan.md` → `PROGRESS.md` → `docs/review.md`); a recorded human plan approval and human review before merge; built-in Claude Code subagents only, no MCP or API key; thoughts/, Linear and model pins removed; for improve-claude-md, commands checked against the repo, progressive disclosure first, and a proposed diff instead of a rewrite.

@@ -49,7 +49,10 @@ Read them when the step says so, not up front.
 
 ## 0. Resume or start
 
-1. If `plan.md` exists, read it and `PROGRESS.md`. Approved → step 3, from the first unticked phase. Not approved → step 2, review.
+1. If `plan.md` exists, read it and `PROGRESS.md`:
+   - Not approved → step 2, ask for approval.
+   - Approved, phases left → step 3, from the first unticked phase.
+   - All phases ticked and verified → step 4.
 2. Otherwise read `docs/intent.md`. If it is missing, stop: ask the human to write it (problem, outcome, constraints), or offer a draft for them to edit. Do not invent the goal.
 3. Pick a short slug for the task (`add-csv-export`).
 

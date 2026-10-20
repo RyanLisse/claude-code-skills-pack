@@ -23,7 +23,7 @@ Answer the research questions by running parallel subagents and combining what t
    - Track them with the todo list.
 
 3. **Spawn parallel subagents.**
-   - Use Claude Code's built-in subagents (the Task tool, for example the Explore agent). No plugins or MCP servers.
+   - Use Claude Code's built-in subagents (the Agent tool, formerly Task; for example the Explore agent). No plugins or MCP servers.
    - One focused question per subagent. Tell it which directories to search, that it is read-only, and to return `path:line` references.
    - Find what exists first, then read the most relevant hits in depth.
    - Ask for examples and usage patterns, not just definitions.

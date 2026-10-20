@@ -14,7 +14,7 @@ Build `plan.md` with the user, step by step. Be skeptical and thorough. The plan
 ## Step 1: Context
 
 1. **Read the inputs in full:** `docs/intent.md`, `spec.md`, the research file, and any file the user names. Read them yourself before spawning subagents.
-2. **Fill gaps with subagents.** If the research does not cover something the plan needs, run focused, read-only subagents in parallel (built-in Task tool) and ask for `path:line` references.
+2. **Fill gaps with subagents.** If the research does not cover something the plan needs, run focused, read-only subagents in parallel (built-in Agent tool, formerly Task) and ask for `path:line` references.
 3. **Read what they found.** Read every file they flag as relevant, in full.
 4. **Check the spec against the code.** Find mismatches, hidden assumptions and the real scope.
 5. **Present your understanding and only the questions the code cannot answer:**

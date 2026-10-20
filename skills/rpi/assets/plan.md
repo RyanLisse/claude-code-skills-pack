@@ -54,7 +54,7 @@ Key discoveries:
 #### Manual verification
 - [ ] [what a human checks, or "none"]
 
-Pause after this phase for manual verification before Phase 2.
+If manual items are listed, pause for them before Phase 2 (unless the human asked for several phases in a row).
 
 ---
 
