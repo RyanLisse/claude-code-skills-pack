@@ -101,6 +101,16 @@ Both skills are **adapted** from MIT sources and rewritten for Claude Code. Each
 - **Not used:** display-dev/visualize `reference/color.md` and `reference/explore-system.md` (its `visualize/NOTICES.md` marks them as carrying CC BY 4.0 / Apache-2.0 adapted material), its detector scripts, design systems and vendored bundles; Cocoon AI's `template.html` and its CDN export toolbar (html2canvas, jsPDF). `assets/skeleton.html` and `assets/diagram.html` are original files written for this pack.
 - **Modified for this pack:** four kinds only (plan, review, diff, recap) instead of 35 templates; a one-message shape check before building; strictly offline output (no CDN scripts, no web fonts); Mermaid in chat as the default diagram route with inline SVG as the file route; evidence rule (no invented nodes, edges or owners); text shortened and edited.
 
+## pstack (referenced, not vendored)
+
+pstack is **not copied** into this repo. The README documents it and `scripts/install-pstack.sh` fetches it from upstream at a pinned commit.
+
+- Source: https://github.com/cursor/plugins/tree/main/pstack (pstack 0.15.29, commit `88d47514b82e7c44f00f2b2a72ff6dd12158038c`)
+- Author: Lauren Tan ([poteto](https://github.com/poteto))
+- License: MIT, Copyright (c) 2026 Lauren Tan (upstream `pstack/LICENSE`; the `cursor/plugins` repo as a whole has no top-level license)
+
+The skill summaries in the README paraphrase the upstream `description` fields.
+
 ## Other links
 
 - Claude Code skills: https://code.claude.com/docs/en/skills
