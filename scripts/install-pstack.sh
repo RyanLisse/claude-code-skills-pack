@@ -75,14 +75,42 @@ done
 
 command -v git >/dev/null || die "git not found"
 
+# The pstack root must be a real, absolute folder below /; links count as "managed"
+# only when their target is an absolute, normalised path inside it.
+PSTACK_ROOT="${PSTACK_ROOT%/}"
+case "$PSTACK_ROOT" in
+  /?*) ;;
+  *) echo "install-pstack: PSTACK_ROOT must be an absolute path below / (got '${PSTACK_ROOT:-/}')" >&2; exit 2 ;;
+esac
+case "$PSTACK_ROOT" in
+  */../*|*/..|*/./*|*/.|*//*) echo "install-pstack: PSTACK_ROOT must be normalised (no ., .. or //)" >&2; exit 2 ;;
+esac
+[ -L "$PSTACK_ROOT" ] && die "PSTACK_ROOT $PSTACK_ROOT is a symlink; point PSTACK_ROOT at the real folder"
+root_canon="$PSTACK_ROOT"
+if [ -d "$PSTACK_ROOT" ]; then root_canon="$(cd "$PSTACK_ROOT" && pwd -P)"; fi
+
+# True when symlink target $1 is inside the pstack root (lexical or canonical form).
+managed() {
+  case "$1" in /*) ;; *) return 1 ;; esac
+  case "$1" in */../*|*/..|*/./*|*/.|*//*) return 1 ;; esac
+  case "$1" in "$PSTACK_ROOT"/?*|"$root_canon"/?*) return 0 ;; esac
+  return 1
+}
+
 dest="$PSTACK_ROOT/$PSTACK_VERSION"
 work="$(mktemp -d)"
-trap 'rm -rf "$work"' EXIT
+staging=""
+cleanup() {
+  rm -rf "$work"
+  if [ -n "$staging" ]; then rm -rf "$staging"; fi
+}
+trap cleanup EXIT
 
 # 1. Fetch the pinned copy (or reuse a complete one).
 plugin_version() {
   sed -n 's/^[[:space:]]*"version":[[:space:]]*"\([^"]*\)".*/\1/p' "$1/plugin.json" 2>/dev/null | head -n 1
 }
+[ -L "$dest" ] && die "$dest is a symlink; remove it or point PSTACK_ROOT elsewhere"
 if [ -f "$dest/.cache-complete" ]; then
   say "pstack $PSTACK_VERSION already at $dest"
   src="$dest"
@@ -108,6 +136,7 @@ else
     rm -rf "$staging/.git"
     touch "$staging/.cache-complete"
     mv "$staging" "$dest"
+    staging=""
     src="$dest"
     say "installed pstack $PSTACK_VERSION to $dest"
   fi
@@ -121,7 +150,6 @@ say "pstack $PSTACK_VERSION: ${#skills[@]} skills"
 
 # 2. Symlink each skill; prune links to other pstack versions that this one no longer ships.
 conflicts=0
-root_real="${PSTACK_ROOT%/}"
 for dir in "${skill_dirs[@]}"; do
   created=0; kept=0; replaced=0; pruned=0
   [ -d "$dir" ] || run mkdir -p "$dir"
@@ -132,7 +160,7 @@ for dir in "${skill_dirs[@]}"; do
       have="$(readlink "$link")"; have="${have%/}"
       if [ "$have" = "$want" ]; then
         kept=$((kept + 1))
-      elif [[ "$have" == "$root_real"/* ]]; then
+      elif managed "$have"; then
         run ln -sfn "$want" "$link"; replaced=$((replaced + 1))
         say "  relink $link -> $want (was $have)"
       else
@@ -148,8 +176,8 @@ for dir in "${skill_dirs[@]}"; do
     for link in "$dir"/*; do
       [ -L "$link" ] || continue
       have="$(readlink "$link")"; have="${have%/}"
-      [[ "$have" == "$root_real"/* ]] || continue
-      [[ "$have" == "$dest"/* ]] && continue
+      managed "$have" || continue
+      case "$have" in "$dest"/*) continue ;; esac
       name="$(basename "$link")"
       case " ${skills[*]} " in *" $name "*) continue ;; esac
       run rm "$link"; pruned=$((pruned + 1))

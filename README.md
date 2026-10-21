@@ -156,7 +156,8 @@ scripts/install-pstack.sh --targets codex   # one tool only
 ```
 
 The script is safe to re-run.
-- It never overwrites a file, directory or symlink that does not point into `~/.local/share/pstack`. It reports that name as skipped and exits `3`.
+- It never overwrites a file, directory or symlink that does not point into `~/.local/share/pstack` (`PSTACK_ROOT`). It reports that name as skipped and exits `3`.
+- It refuses a `PSTACK_ROOT` that is relative, `/`, not normalised, or a symlink.
 - It relinks skills that point at an older pstack version, and removes links to skills the new version no longer ships.
 
 Manual equivalent:
@@ -173,7 +174,15 @@ for d in ~/.local/share/pstack/0.15.29/skills/*/; do
 done
 ```
 
-Then run `/setup-pstack` once to pick models and a reasoning budget. pstack skills use Cursor tool and model names. With the symlink install, Claude Code maps them using `~/.local/share/pstack/0.15.29/docs/harness/claude-code.md` (`Task` → `Agent`, `AskQuestion` → `AskUserQuestion`, and so on), and Cursor-only steps such as Bugbot or Automations are skipped.
+Then run `/setup-pstack` once to pick models and a reasoning budget.
+
+pstack skills use Cursor tool and model names (`Task`, `AskQuestion`, Cursor model slugs). The official Claude Code plugin ships with the mapping. The symlink install does not, and Claude Code does not read the adapter by itself. Add one line to your `~/.claude/CLAUDE.md`:
+
+```markdown
+When you run a pstack skill, first read ~/.local/share/pstack/0.15.29/docs/harness/claude-code.md and map Cursor names with it.
+```
+
+The adapter maps `Task` → `Agent` and `AskQuestion` → `AskUserQuestion`, and says to skip Cursor-only steps such as Bugbot or Automations. Codex has no such adapter, so read Cursor names as their nearest Codex equivalent.
 
 ### Update
 
