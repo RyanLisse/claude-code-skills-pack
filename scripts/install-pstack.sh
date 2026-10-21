@@ -86,14 +86,26 @@ case "$PSTACK_ROOT" in
   */../*|*/..|*/./*|*/.|*//*) echo "install-pstack: PSTACK_ROOT must be normalised (no ., .. or //)" >&2; exit 2 ;;
 esac
 [ -L "$PSTACK_ROOT" ] && die "PSTACK_ROOT $PSTACK_ROOT is a symlink; point PSTACK_ROOT at the real folder"
-root_canon="$PSTACK_ROOT"
-if [ -d "$PSTACK_ROOT" ]; then root_canon="$(cd "$PSTACK_ROOT" && pwd -P)"; fi
+# Physical path of $1: resolve the longest existing prefix with pwd -P and append
+# the part that does not exist (yet). Works for dangling links into removed versions.
+physical() {
+  local p="$1" rest=""
+  while [ ! -d "$p" ]; do
+    rest="/$(basename "$p")$rest"
+    p="$(dirname "$p")"
+  done
+  p="$(cd "$p" && pwd -P)"
+  echo "${p%/}$rest"
+}
+root_canon="$(physical "$PSTACK_ROOT")"
 
-# True when symlink target $1 is inside the pstack root (lexical or canonical form).
+# True when symlink target $1 is pstack's: absolute, normalised, and its folder
+# resolves (following any symlinked component) to a place inside the pstack root.
 managed() {
   case "$1" in /*) ;; *) return 1 ;; esac
   case "$1" in */../*|*/..|*/./*|*/.|*//*) return 1 ;; esac
-  case "$1" in "$PSTACK_ROOT"/?*|"$root_canon"/?*) return 0 ;; esac
+  case "$1" in "$PSTACK_ROOT"/?*|"$root_canon"/?*) ;; *) return 1 ;; esac
+  case "$(physical "$(dirname "$1")")/" in "$root_canon"/?*) return 0 ;; esac
   return 1
 }
 
