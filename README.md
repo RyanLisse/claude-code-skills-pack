@@ -13,6 +13,7 @@ A small, public pack of **Claude Code** skills for Worldline / everyday shipping
 9. **`/improve-claude-md`** — audit a repo's `CLAUDE.md` and propose a shorter, accurate version as a diff
 10. **`/visual-plan`** — turn a plan, plan review, diff review or recap into one self-contained HTML page
 11. **`/diagram`** — architecture, sequence and flow diagrams as Mermaid, or an offline HTML file with inline SVG
+12. **[pstack](#pstack-by-reference)** — poteto's skill set (`/poteto-mode`, verification skills, `/unslop`, …), installed by reference from upstream, not vendored
 
 Aimed at non-experts: copy skills in, type `/skill-name`, get structured help.
 
@@ -130,6 +131,77 @@ rm -rf ~/.claude/skills/archify
 cp -R /tmp/archify-src/archify ~/.claude/skills/archify
 ```
 
+## pstack (by reference)
+
+[pstack](https://github.com/cursor/plugins/tree/main/pstack) is poteto's (Lauren Tan) set of 56 agent skills and principles for writing less but better-verified code: `/poteto-mode` for rigorous work, verification skills, subagent workflows, and writing clean-up. It lives upstream in [`cursor/plugins`](https://github.com/cursor/plugins) under `pstack/`.
+
+**This pack does not vendor pstack.** pstack is MIT (Copyright (c) 2026 Lauren Tan, see its [`LICENSE`](https://github.com/cursor/plugins/blob/main/pstack/LICENSE)), so copying would be allowed. It still stays upstream: it is released several times a week, and a copy here would go stale and blur whose skill is whose. This repo only documents and pins the version we use and provides an install script.
+
+**Pinned version:** pstack **0.15.29**, upstream commit [`88d4751`](https://github.com/cursor/plugins/tree/88d47514b82e7c44f00f2b2a72ff6dd12158038c/pstack). `cursor/plugins` has no pstack tags, so the pin is the commit that set `pstack/plugin.json` to `0.15.29`.
+
+No pstack skill name clashes with a skill in this pack.
+
+### Install
+
+| Tool | How |
+|------|-----|
+| **Claude Code + Codex** (symlinks) | `scripts/install-pstack.sh`: it fetches the pinned commit to `~/.local/share/pstack/0.15.29` and symlinks each skill into `~/.claude/skills/` and `~/.codex/skills/`. |
+| **Cursor** | Marketplace plugin: `/add-plugin pstack`. Cursor reads `pstack/` directly; the script does not touch `~/.cursor`. |
+| Claude Code, official alternative | `/plugin marketplace add cursor/plugins` then `/plugin install pstack@cursor-plugins`. This gives upstream's generated Claude Code tree; commands are prefixed (`/pstack:poteto-mode`). Do not combine it with the symlinks, or every skill exists twice. |
+
+```bash
+scripts/install-pstack.sh --dry-run         # show what would change, write nothing
+scripts/install-pstack.sh                   # Claude Code + Codex
+scripts/install-pstack.sh --targets codex   # one tool only
+```
+
+The script is safe to re-run.
+- It never overwrites a file, directory or symlink that does not point into `~/.local/share/pstack`. It reports that name as skipped and exits `3`.
+- It relinks skills that point at an older pstack version, and removes links to skills the new version no longer ships.
+
+Manual equivalent:
+
+```bash
+git clone --filter=blob:none --no-checkout https://github.com/cursor/plugins.git /tmp/cursor-plugins
+git -C /tmp/cursor-plugins sparse-checkout set pstack
+git -C /tmp/cursor-plugins checkout 88d47514b82e7c44f00f2b2a72ff6dd12158038c
+mkdir -p ~/.local/share/pstack && cp -R /tmp/cursor-plugins/pstack ~/.local/share/pstack/0.15.29
+for d in ~/.local/share/pstack/0.15.29/skills/*/; do
+  for t in ~/.claude/skills ~/.codex/skills; do
+    mkdir -p "$t"; [ -e "$t/$(basename "$d")" ] || ln -s "${d%/}" "$t/$(basename "$d")"
+  done
+done
+```
+
+Then run `/setup-pstack` once to pick models and a reasoning budget. pstack skills use Cursor tool and model names. With the symlink install, Claude Code maps them using `~/.local/share/pstack/0.15.29/docs/harness/claude-code.md` (`Task` → `Agent`, `AskQuestion` → `AskUserQuestion`, and so on), and Cursor-only steps such as Bugbot or Automations are skipped.
+
+### Update
+
+1. Look up the new version and its commit:
+   ```bash
+   gh api 'repos/cursor/plugins/commits?path=pstack/plugin.json&per_page=3' --jq '.[]|.sha+" "+.commit.message'
+   ```
+2. Bump `PSTACK_VERSION` and `PSTACK_REF` in `scripts/install-pstack.sh`, plus the pin in this section. For a one-off install, pass `--version V --ref SHA` instead.
+3. Run `scripts/install-pstack.sh`. It fetches into a new `~/.local/share/pstack/<version>` folder and re-points the links. The script checks that `plugin.json` at that commit really has the version you asked for.
+4. Delete the old version folder once you are happy with the new one.
+5. Cursor updates through the marketplace plugin.
+
+### Most useful skills
+
+| Skill | Use it for |
+|-------|-----------|
+| `/setup-pstack` | First run: choose models per role and a reasoning budget. |
+| `/poteto-mode` | Any work that needs rigor. Concise answers, deliberate subagents, simple code, verified results. |
+| `/create-verification-skill` | Generate a project-local skill that drives your app (UI, CLI or service) the way a user does, so "it works" is proven. Keep it current with `/maintain-verification-skill`. |
+| `/create-formal-verification-skill` (beta) | Generate a project-local skill that formally checks one costly property (races, retries, state machines, parsers) with a model checker or prover. It is the newest of the verification skills, so treat it as beta; upstream gives it no stability label. Keep it current with `/maintain-formal-verification-skill`. |
+| `principle-prove-it-works` | Before saying "done": check the real artifact (run it, read the value, inspect the diff), not a proxy or "it compiles". |
+| `/show-me-your-work` | Long or unattended runs: a TSV decision trail (what, why, evidence, result) for a reviewer. |
+| `/unslop` | Cut AI tells from any writing: PR bodies, docs, messages. |
+| `/interrogate` | Multi-model adversarial review of a change. |
+| `/poteto-help` | Not sure which skill fits? Ask here. |
+
+Most pstack skills set `disable-model-invocation: true`, so you call them by name instead of relying on the agent to pick them. In Claude Code and Cursor that means typing `/name`. In Codex, mention the skill by name. The full list is in [pstack's README](https://github.com/cursor/plugins/tree/main/pstack#readme).
+
 ## What's new vs `8ff9a8dc`
 
 See [`notes/whats-new-vs-8ff9a8dc.md`](notes/whats-new-vs-8ff9a8dc.md): added **cli-for-agents** and **archify** Claude Code skills, README per-skill install, and attribution for both sources.
@@ -149,6 +221,7 @@ See [`notes/whats-new-vs-8ff9a8dc.md`](notes/whats-new-vs-8ff9a8dc.md): added **
 - [humanlayer show-me](https://github.com/humanlayer/skills/tree/main/plugins/show-me) — visual / show-me style plugin skills
 - [tt-a1i/archify](https://github.com/tt-a1i/archify) — Archify engine + upstream skill
 - [cursor/plugins cli-for-agent](https://github.com/cursor/plugins/tree/main/cli-for-agent) — upstream CLI-for-agents patterns
+- [cursor/plugins pstack](https://github.com/cursor/plugins/tree/main/pstack) — poteto's pstack (referenced, see [pstack](#pstack-by-reference))
 
 ## Contributors / credits
 
@@ -158,6 +231,7 @@ See [`notes/whats-new-vs-8ff9a8dc.md`](notes/whats-new-vs-8ff9a8dc.md): added **
 - **[Matt Pocock](https://github.com/mattpocock/skills)** — `/grilling` (MIT).
 - **[Cursor](https://github.com/cursor/plugins)** — team-kit ports and `/cli-for-agents` (MIT).
 - **[tt-a1i/archify](https://github.com/tt-a1i/archify)** — Archify engine and upstream skill (MIT).
+- **[Lauren Tan (poteto)](https://github.com/poteto)** — pstack (MIT), referenced and installed from upstream `cursor/plugins`; no pstack files are copied into this repo.
 
 ## Attribution
 
@@ -165,4 +239,4 @@ See [ATTRIBUTION.md](ATTRIBUTION.md). Ports are **rewritten for Claude Code**; t
 
 ## License
 
-MIT — see [LICENSE](LICENSE). Upstream Cursor plugin sources, Archify, HumanLayer's skills repo, display-dev/visualize and Cocoon AI's architecture-diagram-generator are MIT; HumanLayer's commands used by `/rpi` are Apache-2.0. Third-party license texts are in [`LICENSES/`](LICENSES/) and notices in [NOTICE](NOTICE).
+MIT — see [LICENSE](LICENSE). Upstream Cursor plugin sources, Archify, HumanLayer's skills repo, display-dev/visualize and Cocoon AI's architecture-diagram-generator are MIT; HumanLayer's commands used by `/rpi` are Apache-2.0. pstack (MIT, Lauren Tan) is installed from upstream and not redistributed here. Third-party license texts are in [`LICENSES/`](LICENSES/) and notices in [NOTICE](NOTICE).
